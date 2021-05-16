@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class MoveRoad : MonoBehaviour
 {
-    public float speed;
     public float repeatLength;
     private Vector3 startPos;
     private GameManager gameManager;
+    private PlayerController playerController;
+
 
     // Start is called before the first frame update
     void Start()
     {
         startPos = transform.position; // Establish the default starting position 
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+
     }
 
     // Update is called once per frame
@@ -21,7 +24,7 @@ public class MoveRoad : MonoBehaviour
     {
         if (!gameManager.gameOver)
         {
-            transform.Translate(Vector3.right * Time.deltaTime * speed);
+            transform.Translate(Vector3.right * Time.deltaTime * playerController.speed);
 
             // If background moves down by its repeat length, move it back to start position
             if (transform.position.x > startPos.x + repeatLength)

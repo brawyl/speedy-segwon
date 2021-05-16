@@ -5,14 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
+    public float turnSpeed;
     private float zRange = 8f;
 
     private GameManager gameManager;
+    private bool isPlayingAudio;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        isPlayingAudio = false;
     }
 
     // Update is called once per frame
@@ -34,8 +37,14 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(currentX, currentY, zRange);
             }
 
-            Vector3 move = new Vector3(currentX, currentY, horizontalInput) * Time.deltaTime * speed;
+            Vector3 move = new Vector3(currentX, currentY, horizontalInput) * Time.deltaTime * turnSpeed;
             transform.Translate(move);
+
+            if (!isPlayingAudio)
+            {
+                gameObject.GetComponent<AudioSource>().Play();
+                isPlayingAudio = true;
+            }
         }
     }
 }

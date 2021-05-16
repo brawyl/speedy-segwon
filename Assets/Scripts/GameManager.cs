@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject crate;
     public GameObject gameStartScreen;
     public GameObject gameOverScreen;
+    public Transform cameraPosition;
 
     private float timer = 0f;
     private float spawnTimer;
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         gameStart = false;
         gameOverScreen.SetActive(false);
         gameStartScreen.SetActive(true);
+        spawnTimer = crateInterval;
     }
 
     // Update is called once per frame
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
             {
                 spawnTimer = 0;
                 float zSpawn = Random.Range(-spawnRange, spawnRange);
-                Vector3 spawnPos = new Vector3(-100, 50, zSpawn);
+                Vector3 spawnPos = new Vector3(-150, 75, zSpawn);
                 Instantiate(crate, spawnPos, transform.rotation);
             }
         }
